@@ -23,6 +23,7 @@ const KANBAN_COLUMNS = [
 ];
 
 const FOLLOW_LABELS = {
+  inicial: "1º Contato",
   segundo: "2º Contato",
   terceiro: "3º Contato",
   reaquecimento: "Reaquecimento",
@@ -30,8 +31,8 @@ const FOLLOW_LABELS = {
   concluido: "Finalizado",
 };
 
-const FOLLOW_SEQUENCE = { segundo: "terceiro", terceiro: "reaquecimento", reaquecimento: "final" };
-const FOLLOW_DELAY = { segundo: 3, terceiro: 30, reaquecimento: 30 };
+const FOLLOW_SEQUENCE = { inicial: "segundo", segundo: "terceiro", terceiro: "reaquecimento", reaquecimento: "final" };
+const FOLLOW_DELAY = { inicial: 2, segundo: 3, terceiro: 30, reaquecimento: 30 };
 
 const DEFAULT_SCRIPTS = {
   inicial: "Olá {nome}! Tudo bem? Aqui é da ROCKFIT Equipamentos 💪 Vi seu interesse em equipar a academia/studio com máquinas robustas, compactas e com o melhor custo-benefício do mercado. Posso te mostrar algumas opções que encaixam no seu espaço e orçamento?",
@@ -181,14 +182,14 @@ export default function CRMVendasRockfit() {
     const now = new Date().toISOString();
     const newLead = {
       id: uid("lead"), name, phone, notes: notes || "",
-      kanbanStage: "lead_frio", followStage: "segundo", status: "ativo",
+      kanbanStage: "lead_frio", followStage: "inicial", status: "ativo",
       ownerId: session.collaboratorId, ownerName: session.name,
-      createdAt: now, lastContactAt: now, nextActionAt: addDays(now, 2),
+      createdAt: now, lastContactAt: null, nextActionAt: now,
       closedAt: null, finalizedAt: null,
-      history: [{ stage: "inicial", date: now, by: session.name }],
+      history: [],
     };
     persistLeads([newLead, ...leads]);
-    showToast("Lead adicionado ao funil 💪");
+    showToast("Lead adicionado — já está nas Tarefas do Dia para o 1º contato 💪");
   }
 
   function registerContact(id) {
@@ -396,7 +397,7 @@ function SetupAdminScreen({ onCreate }) {
 
   return (
     <div className="rk-auth-screen">
-      <div className="rk-logo-badge"><img src={`${import.meta.env.BASE_URL}logo.png`} alt="ROCKFIT Equipamentos" /></div>
+      <div className="rk-logo-badge"><img src="/logo.png" alt="ROCKFIT Equipamentos" /></div>
       <h1 className="rk-auth-title">CRM VENDAS</h1>
       <p className="rk-auth-sub">Primeiro acesso: crie o login de administrador (gerente).</p>
       <div className="rk-auth-card">
@@ -425,7 +426,7 @@ function LoginScreen({ collaborators, onLogin }) {
 
   return (
     <div className="rk-auth-screen">
-      <div className="rk-logo-badge"><img src={`${import.meta.env.BASE_URL}logo.png`} alt="ROCKFIT Equipamentos" /></div>
+      <div className="rk-logo-badge"><img src="/logo.png" alt="ROCKFIT Equipamentos" /></div>
       <h1 className="rk-auth-title">CRM VENDAS</h1>
       <p className="rk-auth-sub">Selecione seu nome para entrar.</p>
 
@@ -467,7 +468,7 @@ function TopBar({ session, overdue, soon, onLogout }) {
   return (
     <header className="rk-topbar">
       <div className="rk-brand">
-        <div className="rk-logo-badge rk-logo-badge-sm"><img src={`${import.meta.env.BASE_URL}logo.png`} alt="ROCKFIT Equipamentos" /></div>
+        <div className="rk-logo-badge rk-logo-badge-sm"><img src="/logo.png" alt="ROCKFIT Equipamentos" /></div>
         <div>
           <div className="rk-brand-title">CRM VENDAS</div>
           <div className="rk-brand-sub">ROCKFIT EQUIPAMENTOS</div>
