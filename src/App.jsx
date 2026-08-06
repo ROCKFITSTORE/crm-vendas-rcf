@@ -397,7 +397,7 @@ function SetupAdminScreen({ onCreate }) {
 
   return (
     <div className="rk-auth-screen">
-      <div className="rk-logo-badge"><img src="/logo.png" alt="ROCKFIT Equipamentos" /></div>
+      <div className="rk-logo-badge"><img src="./logo.png" alt="ROCKFIT Equipamentos" /></div>
       <h1 className="rk-auth-title">CRM VENDAS</h1>
       <p className="rk-auth-sub">Primeiro acesso: crie o login de administrador (gerente).</p>
       <div className="rk-auth-card">
@@ -426,7 +426,7 @@ function LoginScreen({ collaborators, onLogin }) {
 
   return (
     <div className="rk-auth-screen">
-      <div className="rk-logo-badge"><img src="/logo.png" alt="ROCKFIT Equipamentos" /></div>
+      <div className="rk-logo-badge"><img src="./logo.png" alt="ROCKFIT Equipamentos" /></div>
       <h1 className="rk-auth-title">CRM VENDAS</h1>
       <p className="rk-auth-sub">Selecione seu nome para entrar.</p>
 
@@ -468,7 +468,7 @@ function TopBar({ session, overdue, soon, onLogout }) {
   return (
     <header className="rk-topbar">
       <div className="rk-brand">
-        <div className="rk-logo-badge rk-logo-badge-sm"><img src="/logo.png" alt="ROCKFIT Equipamentos" /></div>
+        <div className="rk-logo-badge rk-logo-badge-sm"><img src="./logo.png" alt="ROCKFIT Equipamentos" /></div>
         <div>
           <div className="rk-brand-title">CRM VENDAS</div>
           <div className="rk-brand-sub">ROCKFIT EQUIPAMENTOS</div>
